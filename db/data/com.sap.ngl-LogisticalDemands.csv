@@ -1,0 +1,2 @@
+ID,logisticsDemandID,logisticalDemandType,companyCode,purchasingOrg,purchasingGroup,carrier,sourceLocation,destinationLocation,arrivalDate,departureDate,
+20466922-7d57-4e76-b14c-e53fd97dcb11,201,Order,IN,1070,10,UPS,BLR,DEL,2019-01-01,2019-01-01,
