@@ -20,9 +20,11 @@ entity LogisticalDemands : cuid,managed {
 
 entity LogisticalDemandItems : cuid,managed {
     parent : Association to one LogisticalDemands not null;
-    demandItemID : Integer;
-    material : String(18);
-    quantity : Decimal(13,3);
-    unit : String(3);
+    itemNumber : Integer;
+    product : String(18);
+    grossWeight : Decimal(13,3);
+    grossWeightUOM : String(3);
+    referenceOrder : String(10);
+    referenceOrderItem : Integer;
 }
 

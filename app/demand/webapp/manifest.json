@@ -1,0 +1,223 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "demand",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.12.1",
+      "toolsId": "2baa4a48-3cf6-4e43-8ae7-82607f673168"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/demands/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.120.4",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ushell": {},
+        "sap.fe.templates": {},
+        "sap.f": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "demand.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "LogisticalDemandsList",
+          "target": "LogisticalDemandsList"
+        },
+        {
+          "pattern": "LogisticalDemands({key}):?query:",
+          "name": "LogisticalDemandsObjectPage",
+          "target": "LogisticalDemandsObjectPage"
+        },
+        {
+          "pattern": "LogisticalDemands({key})/to_demandItems({key2}):?query:",
+          "name": "LogisticalDemandsItemsObjectPage",
+          "target": "LogisticalDemandsItemsObjectPage"
+        },
+        {
+          "pattern": "LogisticalDemands({key})/to_freightCost({key2}):?query:",
+          "name": "LogisticalDemands_to_freightCostObjectPage",
+          "target": "LogisticalDemands_to_freightCostObjectPage"
+        },
+        {
+          "pattern": "LogisticalDemands({key})/to_freightCost({key2})/_costItems({key3}):?query:",
+          "name": "LogisticalDemands_to_freightCost__costItemsObjectPage",
+          "target": "LogisticalDemands_to_freightCost__costItemsObjectPage"
+        }
+      ],
+      "targets": {
+        "LogisticalDemandsList": {
+          "type": "Component",
+          "id": "LogisticalDemandsList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/LogisticalDemands",
+              "variantManagement": "Page",
+              "navigation": {
+                "LogisticalDemands": {
+                  "detail": {
+                    "route": "LogisticalDemandsObjectPage"
+                  }
+                }
+              },
+              "initialLoad": "Enabled",
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "LogisticalDemandsObjectPage": {
+          "type": "Component",
+          "id": "LogisticalDemandsObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/LogisticalDemands",
+              "navigation": {
+                "to_demandItems": {
+                  "detail": {
+                    "route": "LogisticalDemandsItemsObjectPage"
+                  }
+                },
+                "to_freightCost": {
+                  "detail": {
+                    "route": "LogisticalDemands_to_freightCostObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "to_demandItems/@com.sap.vocabularies.UI.v1.LineItem#OrderItems": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable"
+                  }
+                },
+                "to_freightCost/@com.sap.vocabularies.UI.v1.LineItem#FreightCost": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "LogisticalDemandsItemsObjectPage": {
+          "type": "Component",
+          "id": "LogisticalDemandsItemsObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/LogisticalDemands/to_demandItems"
+            }
+          }
+        },
+        "LogisticalDemands_to_freightCostObjectPage": {
+          "type": "Component",
+          "id": "LogisticalDemands_to_freightCostObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "contextPath": "/LogisticalDemands/to_freightCost",
+              "navigation": {
+                "_costItems": {
+                  "detail": {
+                    "route": "LogisticalDemands_to_freightCost__costItemsObjectPage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "LogisticalDemands_to_freightCost__costItemsObjectPage": {
+          "type": "Component",
+          "id": "LogisticalDemands_to_freightCost__costItemsObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "contextPath": "/LogisticalDemands/to_freightCost/_costItems",
+              "navigation": {}
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}
