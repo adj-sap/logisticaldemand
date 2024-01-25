@@ -17,3 +17,18 @@ cds:
           url: "https://sandbox.api.sap.com/s4hanacloud/sap/opu/odata/sap"
         headers:
           APIKey: "" 
+
+---
+spring:
+  config.activate.on-profile: sqlite
+  sql:
+    init:
+      mode: never
+  datasource:
+    url: "jdbc:sqlite:sqlite.db"
+    driver-class-name: org.sqlite.JDBC
+    hikari:
+      maximum-pool-size: 1
+  web.resources.static-locations: file:./app/
+cds:
+  datasource.auto-config.enabled: false
